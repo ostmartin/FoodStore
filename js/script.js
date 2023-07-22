@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    // let modalTimer = setTimeout(openModalWindow, 6000);
+    let modalTimer = setTimeout(openModalWindow, 6000);
 
     function showModalByScroll() {
         if ((document.documentElement.clientHeight + window.scrollY) >= document.documentElement.scrollHeight - 1) {
