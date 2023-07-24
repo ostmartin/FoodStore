@@ -140,7 +140,7 @@ window.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
     }
 
-    let modalTimer = setTimeout(openModalWindow, 6000);
+    // let modalTimer = setTimeout(openModalWindow, 6000);
 
     function showModalByScroll() {
         if ((document.documentElement.clientHeight + window.scrollY) >= document.documentElement.scrollHeight - 1) {
@@ -218,4 +218,55 @@ window.addEventListener('DOMContentLoaded', () => {
         16,
         '.menu .container'
     ).render();
+
+    // FORMS
+
+    const forms = document.querySelectorAll('form');
+      
+    const message = {
+        loading: 'Loading',
+        success: 'Thank you!',
+        failure: 'Something went wrong...'
+    }
+
+    forms.forEach(item => postData(item));
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+            
+            request.setRequestHeader('Content-type', 'application/json');
+            const formData = new FormData(form);
+
+            const object = {};
+            formData.forEach(function(value, key) {
+                object[key] = value;
+            })
+
+            const jsonData = JSON.stringify(object);
+
+            request.send(jsonData);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000)
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            })
+        })
+    }
 }) 
