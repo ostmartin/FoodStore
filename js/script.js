@@ -246,21 +246,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(form);
 
-            // const object = {};
-            // formData.forEach(function(value, key) {
-            //     object[key] = value;
-            // })
+            const object = {};
+            formData.forEach(function(value, key) {
+                object[key] = value;
+            })
 
-            // const jsonData = JSON.stringify(object);
+            const jsonData = JSON.stringify(object);
 
             fetch('server.php', {
                 method: "POST",
-                // headers: {
-                //     'Content-type': 'application/json'
-                // },
-                body: formData
-            }).then(data => {
-                console.log(data)
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: jsonData
+            })
+            .then(data => {
+                console.log(data);
+                return data.text();
+            })
+            .then(r => {
+                console.log(r);
                 showThanksModal(message.success);
                 statusMessage.remove();
             }).catch(() => {
