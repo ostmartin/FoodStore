@@ -208,22 +208,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     /* -----------------------------*/
 
-    // const getResource = async (url) => {
-    //     const res = await fetch(url);
+    /*const getResource = async (url) => {
+        const res = await fetch(url);
 
-    //     if (!res.ok) {
-    //         throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-    //     }
+        if (!res.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+        }
 
-    //     return await res.json();
-    // };
+        return await res.json();
+    };
 
-    // getResource('http://localhost:3000/menu')
-    //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => {
-    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-    //         })
-    //     })
+    getResource('http://localhost:3000/menu')
+        .then(data => {
+            data.forEach(({img, altimg, title, descr, price}) => {
+                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
+            })
+        })*/
 
 
 
@@ -231,28 +231,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     /*---------------------------------*/
 
-    // getResource('http://localhost:3000/menu')
-    // .then(data => createCard(data));
+    /*getResource('http://localhost:3000/menu')
+    .then(data => createCard(data));
 
-    // function createCard(data) {
-    //     data.forEach(({img, altimg, title, descr, price}) => {
-    //         const element = document.createElement('div');
-    //         element.classList.add('menu__item');
-    //         price *= 27;
-    //         element.innerHTML = `
-    //             <img src=${img} alt=${altimg}>
-    //             <h3 class="menu__item-subtitle">${title}</h3>
-    //             <div class="menu__item-descr">${descr}</div>
-    //             <div class="menu__item-divider"></div>
-    //             <div class="menu__item-price">
-    //                 <div class="menu__item-cost">Цена:</div>
-    //                 <div class="menu__item-total"><span>${price}</span> грн/день</div>
-    //             </div>
-    //         `;
+    function createCard(data) {
+        data.forEach(({img, altimg, title, descr, price}) => {
+            const element = document.createElement('div');
+            element.classList.add('menu__item');
+            price *= 27;
+            element.innerHTML = `
+                <img src=${img} alt=${altimg}>
+                <h3 class="menu__item-subtitle">${title}</h3>
+                <div class="menu__item-descr">${descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${price}</span> грн/день</div>
+                </div>
+            `;
 
-    //         document.querySelector('.menu .container').append(element)
-    //     })    
-    // }
+            document.querySelector('.menu .container').append(element)
+        })    
+    } */
 
     // FORMS
 
@@ -337,29 +337,45 @@ window.addEventListener('DOMContentLoaded', () => {
           slideNext = document.querySelector('.offer__slider-next'),
           currSlide = document.querySelector('#current'),
           totalSlides = document.querySelector('#total'),
-          slides = document.querySelectorAll('.offer__slide');
-    
-    totalSlides.textContent = ('0' + slides.length).slice(-2);
-    let slideIndex = 0;
+          slides = document.querySelectorAll('.offer__slide'),
+          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
+          slidesField = document.querySelector('.offer__slider-inner'),
+          width = window.getComputedStyle(slidesWrapper).width,
+          sliderWidth = +width.slice(0, width.length - 2);;
 
-    function showCurrentSlide(index) {
+    let slideIndex = 1;
+    let offset = 0;
+
+    if (slides.length < 10) {
+        total.textContent = `0${slides.length}`;
+        currSlide.textContent = `0${slideIndex}`;
+    } else {
+        total.textContent = slides.length;
+        currSlide.textContent = slideIndex
+    }
+
+    /*function showCurrentSlide(index) {
         slides.forEach(slide => {
             slide.classList.remove('show', 'fade');
             slide.classList.add('hide');
         })
 
-        slides[index].classList.add('show', 'fade');
-        slides[index].classList.remove('hide');
-        currSlide.textContent = ('0' + (slideIndex + 1)).slice(-2);
+        slides[index - 1].classList.add('show', 'fade');
+        slides[index - 1].classList.remove('hide');
+        if (slides.length < 10) {
+            currSlide.textContent = `0${slideIndex}`;
+        } else {
+            currSlide.textContent = slideIndex;
+        }
     }
 
     showCurrentSlide(slideIndex);
 
     slideNext.addEventListener('click', () => {
-        if (slideIndex < slides.length - 1) {
+        if (slideIndex - 1 < slides.length - 1) {
             slideIndex++;
         } else {
-            slideIndex = 0;
+            slideIndex = 1;
         }
         showCurrentSlide(slideIndex);
     })
@@ -371,5 +387,52 @@ window.addEventListener('DOMContentLoaded', () => {
             slideIndex = slides.length - 1;
         }
         showCurrentSlide(slideIndex);
+    })*/
+
+    // ALTERVATIVE SLIDER
+
+    slidesField.style.width = 100 * slides.length + '%';
+    slides.forEach(slide => {
+        slide.style.width = sliderWidth;
+    })
+
+    slidesField.style.display = 'flex';
+    slidesField.style.transition = '0.5s all';
+    slidesWrapper.style.overflow = 'hidden';
+
+    slideNext.addEventListener('click', () => {
+        if (offset === sliderWidth * (slides.length - 1)) {
+            offset = 0;
+            slideIndex = 1;
+        } else {
+            offset += sliderWidth;
+            slideIndex++;
+        }
+
+        if (slides.length < 10) {
+            currSlide.textContent = `0${slideIndex}`;
+        } else {
+            currSlide.textContent = slideIndex;
+        }
+        
+        slidesField.style.transform = `translateX(-${offset}px)`;
+    })
+
+    slidePrev.addEventListener('click', () => {
+        if (offset <= 0) {
+            offset = sliderWidth * (slides.length - 1);
+            slideIndex = slides.length;
+        } else {
+            offset -= sliderWidth;
+            slideIndex--;
+        }
+
+        if (slides.length < 10) {
+            currSlide.textContent = `0${slideIndex}`;
+        } else {
+            currSlide.textContent = slideIndex;
+        }
+
+        slidesField.style.transform = `translateX(-${offset}px)`;
     })
 }) 
