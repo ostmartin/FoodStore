@@ -771,3 +771,7 @@ margin:0 auto
 .dotActive {
     opacity: 1;
 }
+
+.invalid-data{
+    border: 2px solid rgba(255, 0, 0, 0.568);
+}
