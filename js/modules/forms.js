@@ -1,3 +1,5 @@
+export {forms};
+
 function forms() {
     const forms = document.querySelectorAll('form');
       
@@ -75,4 +77,4 @@ function forms() {
     }
 }
 
-module.exports = forms;
+// module.exports = forms;

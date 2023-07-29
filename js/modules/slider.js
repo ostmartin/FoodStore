@@ -1,3 +1,5 @@
+export {slider};
+
 function slider() {
     const slidePrev = document.querySelector('.offer__slider-prev'),
           slideNext = document.querySelector('.offer__slider-next'),
@@ -161,4 +163,4 @@ function slider() {
     }
 }
 
-module.exports = slider;
+// module.exports = slider;

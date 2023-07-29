@@ -1,3 +1,5 @@
+export {modal};
+
 function modal() {
     const contactUsBtns = document.querySelectorAll('[data-modal]');
     
@@ -48,4 +50,4 @@ function modal() {
     window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+// module.exports = modal;

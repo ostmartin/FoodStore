@@ -1,3 +1,5 @@
+export {timer};
+
 function timer() {
     const deadline = '2023-07-21';
 
@@ -56,4 +58,4 @@ function timer() {
     setClock('.timer', deadline);
 }
 
-module.exports = timer;
+// module.exports = timer;

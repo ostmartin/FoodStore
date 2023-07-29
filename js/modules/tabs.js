@@ -1,3 +1,5 @@
+export {tabs};
+
 function tabs() {
     const tabs = document.querySelectorAll('.tabheader__item'),
           tabsContent = document.querySelectorAll('.tabcontent'),
@@ -40,4 +42,4 @@ function tabs() {
     })
 }
 
-module.exports = tabs;
+// module.exports = tabs;
