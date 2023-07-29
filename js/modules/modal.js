@@ -17,6 +17,12 @@ function modal() {
         modalWindow.classList.remove('hide');
         document.body.style.overflow = 'hidden';
         clearInterval(modalTimer);
+
+        /* -------------------------------------------------- */
+
+        window.removeEventListener('scroll', showModalByScroll);
+
+        /* --------------------------------------------------- */
     }
 
     function closeWindow(e) {
