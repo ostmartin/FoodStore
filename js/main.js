@@ -417,14 +417,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 
 
-function slider() {
-    const slidePrev = document.querySelector('.offer__slider-prev'),
-          slideNext = document.querySelector('.offer__slider-next'),
-          currSlide = document.querySelector('#current'),
-          totalSlides = document.querySelector('#total'),
-          slides = document.querySelectorAll('.offer__slide'),
-          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-          slidesField = document.querySelector('.offer__slider-inner'),
+function slider({container, slidesList, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
+    const slidePrev = document.querySelector(prevArrow),
+          slideNext = document.querySelector(nextArrow),
+          currSlide = document.querySelector(currentCounter),
+          totalSlides = document.querySelector(totalCounter),
+          slides = document.querySelectorAll(slidesList),
+          slidesWrapper = document.querySelector(wrapper),
+          slidesField = document.querySelector(field),
           width = window.getComputedStyle(slidesWrapper).width,
           sliderWidth = +width.replace(/\D/g, '');
 
@@ -441,7 +441,7 @@ function slider() {
     - при клике на точку перемещение на соответствующий слайд
     */
 /*------------------------*/
-    const sliderWrapper = document.querySelector('.offer__slider');
+    const sliderWrapper = document.querySelector(container);
     sliderWrapper.style.position = 'relative';
 
     const dotsWrapper = document.createElement('ul');
@@ -654,9 +654,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 
 
-function timer() {
-    const deadline = '2023-07-21';
-
+function timer(deadline, timerSelector) {
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
               days = Math.floor(t / (1000 * 60 * 60 * 24)),
@@ -709,7 +707,7 @@ function timer() {
 
     }
 
-    setClock('.timer', deadline);
+    setClock(timerSelector, deadline);
 }
 
 // module.exports = timer;
@@ -842,15 +840,24 @@ window.addEventListener('DOMContentLoaded', () => {
     //     slider = require('./modules/slider');
 
 
-    let modalTimer = setTimeout(() => (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_1__.openModalWindow)('.modal', modalTimer), 6000);
+    let modalTimer = setTimeout(() => (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_1__.openModalWindow)('.modal', modalTimer), 30000);
 
     (0,_modules_tabs_js__WEBPACK_IMPORTED_MODULE_0__.tabs)('.tabheader__item', '.tabcontent', '.tabcontainer', 'tabheader__item_active');
     (0,_modules_modal_js__WEBPACK_IMPORTED_MODULE_1__.modal)('[data-modal]', '.modal', modalTimer);
-    (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_2__.timer)();
+    (0,_modules_timer_js__WEBPACK_IMPORTED_MODULE_2__.timer)('2023-08-21', '.timer');
     (0,_modules_cards_js__WEBPACK_IMPORTED_MODULE_3__.cards)();
     (0,_modules_calc_js__WEBPACK_IMPORTED_MODULE_4__.calc)();
     (0,_modules_forms_js__WEBPACK_IMPORTED_MODULE_5__.forms)('form', '.modal', modalTimer);
-    (0,_modules_slider_js__WEBPACK_IMPORTED_MODULE_6__.slider)();
+    (0,_modules_slider_js__WEBPACK_IMPORTED_MODULE_6__.slider)({
+        container: '.offer__slider', 
+        slidesList: '.offer__slide', 
+        nextArrow: '.offer__slider-next', 
+        prevArrow: '.offer__slider-prev', 
+        totalCounter: '#total', 
+        currentCounter: '#current', 
+        wrapper: '.offer__slider-wrapper', 
+        field: '.offer__slider-inner'
+    });
 
 }) 
 })();

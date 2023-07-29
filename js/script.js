@@ -17,14 +17,23 @@ window.addEventListener('DOMContentLoaded', () => {
     //     slider = require('./modules/slider');
 
 
-    let modalTimer = setTimeout(() => openModalWindow('.modal', modalTimer), 6000);
+    let modalTimer = setTimeout(() => openModalWindow('.modal', modalTimer), 30000);
 
     tabs('.tabheader__item', '.tabcontent', '.tabcontainer', 'tabheader__item_active');
     modal('[data-modal]', '.modal', modalTimer);
-    timer();
+    timer('2023-08-21', '.timer');
     cards();
     calc();
     forms('form', '.modal', modalTimer);
-    slider();
+    slider({
+        container: '.offer__slider', 
+        slidesList: '.offer__slide', 
+        nextArrow: '.offer__slider-next', 
+        prevArrow: '.offer__slider-prev', 
+        totalCounter: '#total', 
+        currentCounter: '#current', 
+        wrapper: '.offer__slider-wrapper', 
+        field: '.offer__slider-inner'
+    });
 
 }) 

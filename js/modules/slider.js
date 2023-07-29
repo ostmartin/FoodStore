@@ -1,13 +1,13 @@
 export {slider};
 
-function slider() {
-    const slidePrev = document.querySelector('.offer__slider-prev'),
-          slideNext = document.querySelector('.offer__slider-next'),
-          currSlide = document.querySelector('#current'),
-          totalSlides = document.querySelector('#total'),
-          slides = document.querySelectorAll('.offer__slide'),
-          slidesWrapper = document.querySelector('.offer__slider-wrapper'),
-          slidesField = document.querySelector('.offer__slider-inner'),
+function slider({container, slidesList, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
+    const slidePrev = document.querySelector(prevArrow),
+          slideNext = document.querySelector(nextArrow),
+          currSlide = document.querySelector(currentCounter),
+          totalSlides = document.querySelector(totalCounter),
+          slides = document.querySelectorAll(slidesList),
+          slidesWrapper = document.querySelector(wrapper),
+          slidesField = document.querySelector(field),
           width = window.getComputedStyle(slidesWrapper).width,
           sliderWidth = +width.replace(/\D/g, '');
 
@@ -24,7 +24,7 @@ function slider() {
     - при клике на точку перемещение на соответствующий слайд
     */
 /*------------------------*/
-    const sliderWrapper = document.querySelector('.offer__slider');
+    const sliderWrapper = document.querySelector(container);
     sliderWrapper.style.position = 'relative';
 
     const dotsWrapper = document.createElement('ul');
