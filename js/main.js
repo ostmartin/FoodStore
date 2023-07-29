@@ -625,7 +625,7 @@ function tabs(tabsSelector, tabsContentSelector, tabsParentSelector, activeClass
     tabsParent.addEventListener('click', (e) => {
         const target = e.target;
 
-        if (target && target.classList.contains('tabheader__item')){
+        if (target && target.classList.contains(tabsSelector.slice(1))){
             // hideTabContent();
             // showTabContent(tabsArr.indexOf(target));
             tabs.forEach((item, i) => {
